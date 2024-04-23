@@ -3,6 +3,7 @@
         "columnspan",
         "padx",
         "pady",
-        "textvariable"
+        "textvariable",
+        "workclass"
     ]
 }

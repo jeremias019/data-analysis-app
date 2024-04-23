@@ -63,7 +63,13 @@ class GUI:
             if selected_query == "Find records with missing work class":
                 result = self.query_module.get_records_with_missing_work_class()
             elif selected_query == "Compute standard deviation of capital gains and losses":
-                result = self.query_module.compute_std_capital_gains_losses()
+                 # Prompt for age
+                age = self.prompt_for_age()
+                # Filter data for individuals with age less than or equal to the specified age
+                filtered_data = {age: record for age, record in self.data.items() if record['age'] <= age}
+                # Pass age to the query function
+                result = self.query_module.compute_std_capital_gains_losses(filtered_data)
+
             elif selected_query == "Retrieve native country of an individual":
                 age = self.prompt_for_age()
                 if age is not None:
@@ -95,10 +101,10 @@ class GUI:
             else:
                 messagebox.showerror("Error", "Invalid query.")
                 return
+            
+            self.query_module.write_to_csv('results.csv')
 
             messagebox.showinfo("Query Result", str(result))
-
-            self.query_module.write_to_csv('results.csv')
         except Exception as e:
             messagebox.showerror("Error", str(e))
 
