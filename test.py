@@ -1,3 +1,6 @@
+#this is a file used to test the functions in the query module file
+#
+
 from data_loader import load_data_from_csv
 from query_module import (
     find_missing_workclass,
