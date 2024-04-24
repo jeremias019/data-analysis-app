@@ -10,7 +10,7 @@ from query_module import (
     average_age_above_50k,
     occupations_below_50k,
     income_percentage_by_gender,
-    income_stats_by_marital_status,
+    proportion_income_never_married,
     attributes_of_high_earners,
     attributes_of_lower_earners,
     attributes_of_doctorates,
@@ -60,8 +60,8 @@ gender_income_percentage = income_percentage_by_gender(data)
 persist_query_results_to_csv(gender_income_percentage, 'Income Percentage by Gender', 'query_results.csv')
 
 # Test for Income Statistics by Marital Status and log the results
-income_stats_marital = income_stats_by_marital_status(data)
-persist_query_results_to_csv(income_stats_marital, 'Income Stats by Marital Status', 'query_results.csv')
+income_stats_marital = proportion_income_never_married(data)
+persist_query_results_to_csv(income_stats_marital, 'Income Stats for Never Married', 'query_results.csv')
 
 # Test for Attributes of High Earners and log the results
 high_earner_attributes = attributes_of_high_earners(data)

@@ -22,7 +22,7 @@ def compute_std_deviation(data):
             return 0
         mean = sum(values) / len(values)
         variance = sum((x - mean) ** 2 for x in values) / len(values)
-        return sqrt(variance)  # Using custom sqrt function
+        return sqrt(variance)  
 
     # square root function
     def sqrt(value):
@@ -98,13 +98,14 @@ def average_age_above_50k(data):
         return total_age / count
 
 def occupations_below_50k(data):
-    occupations = []
+    occupations = set()  # i use a set here to handle uniqueness
+
     for record in data.values():
         if record.get('income', '').strip() == '<=50K':
             occupation = record.get('occupation', 'Unknown').strip()
-            occupations.append(occupation)
+            occupations.add(occupation)
 
-    return occupations
+    return list(occupations)
 
 def income_percentage_by_gender(data):
     # as prep we initialize counters
@@ -137,51 +138,23 @@ def income_percentage_by_gender(data):
 
     return results
 
-def income_stats_by_marital_status(data):
-    # first we collect income data per marital status using a dictionary
-    marital_incomes = {}
+def proportion_income_never_married(data):
+    income_counts = {'>50K': 0, '<=50K': 0}
+    total_never_married = 0
+
     for record in data.values():
-        status = record.get('marital-status', 'Unknown').strip()
-        if record.get('income').isdigit():
-            income = int(record.get('income'))
-            if status in marital_incomes:
-                marital_incomes[status].append(income)
-            else:
-                marital_incomes[status] = [income]
+        if record.get('marital-status', '').strip() == 'Never-married':
+            income_category = record.get('income', '').strip()
+            if income_category in income_counts:
+                income_counts[income_category] += 1
+            total_never_married += 1
 
-    # then we define some functions to calculate mode and median
-    def calculate_mode(incomes):
-        income_count = {}
-        for income in incomes:
-            if income in income_count:
-                income_count[income] += 1
-            else:
-                income_count[income] = 1
-        max_count = max(income_count.values())
-        modes = [income for income, count in income_count.items() if count == max_count]
-        return modes
-
-    def calculate_median(incomes):
-        n = len(incomes)
-        sorted_incomes = sorted(incomes)
-        mid = n // 2
-        if n % 2 == 0:
-            return (sorted_incomes[mid - 1] + sorted_incomes[mid]) / 2
-        else:
-            return sorted_incomes[mid]
-
-    # then we calculate statistics for each marital status
-    stats = {}
-    for status, incomes in marital_incomes.items():
-        if incomes:
-            mean_income = sum(incomes) / len(incomes)
-            mode_income = calculate_mode(incomes)
-            median_income = calculate_median(incomes)
-            stats[status] = {'mean': mean_income, 'mode': mode_income, 'median': median_income}
-        else:
-            stats[status] = {'mean': 0, 'mode': [], 'median': None}
-
-    return stats
+    if total_never_married > 0:
+        # Convert counts to percentages
+        proportions = {category: (count / total_never_married) * 100 for category, count in income_counts.items()}
+        return proportions
+    else:
+        return None
 
 def attributes_of_high_earners(data):
     high_earners = []
@@ -225,26 +198,36 @@ def attributes_of_doctorates(data):
 
     return doctorates
 
+def basic_statistics_of_race(data):
+    race_stats = {}
+    for record in data.values():
+        race = record.get('race', 'Unknown').strip()
+        if race in race_stats:
+            race_stats[race] += 1
+        else:
+            race_stats[race] = 1
+    return race_stats
+
 def persist_query_results_to_csv(data, query_name, file_path):
-
-    # we normalize data to a list of dictionaries if it's a single dictionary
-    if isinstance(data, dict):
-        data = [data]
-
-    print(f"Data to write: {data}")  # Debugging output
-
-    # Open the file in append mode
-    with open(file_path, mode='a', encoding='utf-8') as file:
-        if data:
+    try:
+        # Open the file in append mode
+        with open(file_path, mode='a', encoding='utf-8') as file:
             # Check if file is empty to decide on writing headers
             file.seek(0, 2)  # Move to the end of file
             if file.tell() == 0:  # File is empty
                 file.write('Query Name,Data\n')
-            # Write data
-            for record in data:
-                formatted_record = str(record).replace(',', ';')  # Handle commas in data
+            
+            # Handle different types of data
+            if isinstance(data, (list, tuple)) and all(isinstance(item, dict) for item in data):
+                for record in data:
+                    formatted_record = ', '.join(f"{key}: {value}" for key, value in record.items())
+                    file.write(f"{query_name},{formatted_record}\n")
+            elif isinstance(data, dict):
+                formatted_record = ', '.join(f"{key}: {value}" for key, value in data.items())
                 file.write(f"{query_name},{formatted_record}\n")
-        else:
-            print("No data received to write.")  # Debugging output
-
-
+            else:
+                # Handle single data point (int, str, etc.)
+                file.write(f"{query_name},{data}\n")
+    except IOError as e:
+        # Handle file I/O errors e.g., file not found, or disk full
+        print(f"Error writing to file {file_path}: {e}")

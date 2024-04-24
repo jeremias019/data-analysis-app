@@ -1,5 +1,5 @@
 
-# while laoding the dataset i experienced some problems so upon research on how to identify where in the 
+# while loading the dataset i experienced some problems so upon research on how to identify where in the 
 # dataset i have issues i went and implemented a log feature that allows us know what line in the 
 #data has issues. and when a problem comes up it logs it into a text file
 def load_data_from_csv(file_path):
