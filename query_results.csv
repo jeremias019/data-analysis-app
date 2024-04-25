@@ -1835,14 +1835,14 @@ Missing Workclass,age: 30, workclass:  ?, fnlwgt:  33811, education:  Bachelors,
 Missing Workclass,age: 71, workclass:  ?, fnlwgt:  287372, education:  Doctorate, education-num:  16, marital-status:  Married-civ-spouse, occupation:  ?, relationship:  Husband, race:  White, sex:  Male, capital-gain:  0, capital-loss:  0, hours-per-week:  10, native-country:  United-States, income:  >50K
 Missing Workclass,age: 41, workclass:  ?, fnlwgt:  202822, education:  HS-grad, education-num:  9, marital-status:  Separated, occupation:  ?, relationship:  Not-in-family, race:  Black, sex:  Female, capital-gain:  0, capital-loss:  0, hours-per-week:  32, native-country:  United-States, income:  <=50K
 Missing Workclass,age: 72, workclass:  ?, fnlwgt:  129912, education:  HS-grad, education-num:  9, marital-status:  Married-civ-spouse, occupation:  ?, relationship:  Husband, race:  White, sex:  Male, capital-gain:  0, capital-loss:  0, hours-per-week:  25, native-country:  United-States, income:  <=50K
-Standard Deviation of Gains and Losses,Gains: 7385.178676946586, Losses: 402.9540308275458
+Standard Deviation of Gains and Losses,Gains: 7385.1786769476275, Losses: 402.95403082748646
 Native Country,Native Country:  United-States
-Total People from Scotland,12
+Total People from Iran,43
 Total People with Doctorate Degrees,Total Doctorates: 413
-Occupation of Individual,Occupation:  ?
+Occupation of Individual,Occupation:  Handlers-cleaners
 Marital Status Statistics,Never-married: 10683, Married-civ-spouse: 14976, Divorced: 4443, Married-spouse-absent: 418, Separated: 1025, Married-AF-spouse: 23, Widowed: 993
 Average Age Above 50K,Average Age >50K: 44.24984058155847
-Occupations Below 50K,['Armed-Forces', 'Protective-serv', 'Transport-moving', 'Prof-specialty', 'Adm-clerical', 'Handlers-cleaners', 'Craft-repair', '?', 'Tech-support', 'Sales', 'Machine-op-inspct', 'Exec-managerial', 'Other-service', 'Priv-house-serv', 'Farming-fishing']
+Occupations Below 50K,['Priv-house-serv', 'Transport-moving', 'Prof-specialty', 'Handlers-cleaners', 'Machine-op-inspct', 'Tech-support', 'Exec-managerial', '?', 'Armed-Forces', 'Farming-fishing', 'Other-service', 'Sales', 'Craft-repair', 'Adm-clerical', 'Protective-serv']
 Income Percentage by Gender,Male: {'>50K': 30.573657641119777, '<=50K': 69.42634235888022}, Female: {'>50K': 10.946058861758425, '<=50K': 89.05394113824158}
 Proportion of Income of Never Married,Proportion of Income of Never Married: {'>50K': 4.596087241411588, '<=50K': 95.40391275858842}
 Basic Statistics of Race,White: 27816, Black: 3124, Asian-Pac-Islander: 1039, Amer-Indian-Eskimo: 311, Other: 271
